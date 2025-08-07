@@ -23,7 +23,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/pos-react">
+      <BrowserRouter basename="/pos-react/">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={

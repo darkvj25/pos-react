@@ -23,7 +23,21 @@ const DEFAULT_USERS: User[] = [
   },
 ];
 
-export const usePosAuth = () => {
+interface UsePosAuthReturn {
+  currentUser: User | null;
+  users: User[];
+  isLoading: boolean;
+  login: (username: string, password: string) => { success: boolean; error?: string; user?: User };
+  logout: () => void;
+  addUser: (userData: Omit<User, 'id' | 'createdAt'>) => User;
+  updateUser: (userId: string, updates: Partial<User>) => void;
+  deleteUser: (userId: string) => void;
+  isAdmin: boolean;
+  isCashier: boolean;
+  isAuthenticated: boolean;
+}
+
+export const usePosAuth = (): UsePosAuthReturn => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -67,7 +81,7 @@ export const usePosAuth = () => {
     setCurrentUser(null);
     localStorage.removeItem('pos_current_user');
     // Force navigation to home/login
-    window.location.href = '/';
+    window.location.href = '/pos-react/';
   };
 
   const addUser = (userData: Omit<User, 'id' | 'createdAt'>): User => {
@@ -122,3 +136,4 @@ export const usePosAuth = () => {
     isAuthenticated: !!currentUser,
   };
 };
+
